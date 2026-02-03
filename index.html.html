@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Valentine's Quiz for Hubby</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #fff0f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        #quiz-container { background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; max-width: 400px; width: 90%; }
+        h2 { color: #d63384; }
+        .option-btn { display: block; width: 100%; margin: 10px 0; padding: 12px; border: 2px solid #ffb6c1; background: white; border-radius: 10px; cursor: pointer; transition: 0.3s; font-size: 16px; }
+        .option-btn:hover { background: #ffb6c1; color: white; }
+    </style>
+</head>
+<body>
+
+<div id="quiz-container">
+    <div id="question-box">
+        </div>
+</div>
+
+<script>
+    const questions = [
+        {
+            q: "What did I wear for our 1st Valentine’s Day celebration?",
+            options: ["Blue and white dress", "Maroon dress", "Pink dress"],
+            correct: 0,
+            rightMsg: "Great start 😃",
+            wrongMsg: "Starting off on the wrong foot already 🥺"
+        },
+        {
+            q: "Where was our 1st hug?",
+            options: ["When we met for the 1st time in TVM", "Ammavan’s apartment’s parking", "On our date in BGLR"],
+            correct: 1,
+            rightMsg: "You remember 🥹",
+            wrongMsg: "Wow what a way to go wrong 😑"
+        },
+        {
+            q: "When did you fall in love with me?",
+            options: ["When I made lemon tea for you", "When we did day out at a resort in TVM", "When we got engaged"],
+            any: true,
+            msg: "Aww I love you bubu 😘"
+        },
+        {
+            q: "Will you be my Valentine 💝?",
+            options: ["Yes", "If not you then who", "Infinity times yes"],
+            any: true,
+            msg: "Congrats you have earned a dinner date with Nikki 🥳"
+        }
+    ];
+
+    let currentQ = 0;
+
+    function loadQuestion() {
+        const box = document.getElementById('question-box');
+        const qData = questions[currentQ];
+        let html = `<h2>Question ${currentQ + 1}</h2><p>${qData.q}</p>`;
+        
+        qData.options.forEach((opt, index) => {
+            html += `<button class="option-btn" onclick="checkAnswer(${index})">${opt}</button>`;
+        });
+        box.innerHTML = html;
+    }
+
+    window.checkAnswer = function(index) {
+        const qData = questions[currentQ];
+        if (qData.any) {
+            alert(qData.msg);
+        } else {
+            if (index === qData.correct) {
+                alert(qData.rightMsg);
+            } else {
+                alert(qData.wrongMsg);
+            }
+        }
+        
+        currentQ++;
+        if (currentQ < questions.length) {
+            loadQuestion();
+        } else {
+            document.getElementById('quiz-container').innerHTML = "<h2>Quiz Finished! ❤️</h2><p>Go claim your dinner date!</p>";
+        }
+    };
+
+    loadQuestion();
+</script>
+</body>
+</html>
